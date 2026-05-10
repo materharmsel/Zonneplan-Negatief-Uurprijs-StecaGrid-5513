@@ -9,8 +9,8 @@ prijs weer op 5500 W.
 ```bash
 # 1. Clone
 cd ~
-git clone <jouw-fork-url> zonneplan-stecagrid-5513
-cd zonneplan-stecagrid-5513
+git clone https://github.com/materharmsel/Zonneplan-Negatief-Uurprijs-StecaGrid-5513.git
+cd Zonneplan-Negatief-Uurprijs-StecaGrid-5513
 
 # 2. Virtual env + dependencies
 python3 -m venv .venv
@@ -33,7 +33,7 @@ python controller.py
 # 6. Cron toevoegen
 crontab -e
 # Voeg toe (één regel):
-*/15 * * * * cd /home/pi/zonneplan-stecagrid-5513 && .venv/bin/python controller.py >> ~/zonneplan_prices.log 2>&1
+*/15 * * * * cd /home/pi/Zonneplan-Negatief-Uurprijs-StecaGrid-5513 && .venv/bin/python controller.py >> ~/zonneplan_prices.log 2>&1
 ```
 
 ## Hoe het werkt
