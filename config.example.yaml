@@ -1,0 +1,5 @@
+# Kopieer naar config.yaml en vul in. config.yaml staat in .gitignore.
+inverter:
+  ip: 192.168.1.50
+  password: "PLANT_OWNER_WACHTWOORD"
+  max_watts: 5500
