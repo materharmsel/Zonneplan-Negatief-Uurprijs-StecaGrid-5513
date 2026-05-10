@@ -1,0 +1,21 @@
+# Lokale documentatie & captures (bevat secrets/cookies)
+docs/
+
+# Lokale config met wachtwoord
+config.yaml
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Logs
+*.log
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
