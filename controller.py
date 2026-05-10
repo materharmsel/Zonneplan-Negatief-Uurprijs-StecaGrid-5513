@@ -16,6 +16,7 @@ import yaml
 
 import fetch_prices
 import inverter
+import logger
 from decide import decide_target_watts
 
 CONFIG_FILE = Path(__file__).parent / "config.yaml"
@@ -38,6 +39,8 @@ def run(
     password: str,
     max_watts: float,
     inverter_apply: Callable[..., inverter.ApplyResult],
+    logger_fn: Callable[..., "logger.LogReading"] | None = None,
+    db_path: str | None = None,
 ) -> RunOutcome:
     """Pure orkestratie. Geen IO behalve via de injected callables."""
     price = price_getter()
@@ -50,6 +53,21 @@ def run(
         log.info("limit gewijzigd: %.0f W -> %.0f W", result.previous_watts, target)
     else:
         log.info("no change (limit=%.0f W)", result.previous_watts)
+
+    if logger_fn is not None and db_path is not None:
+        try:
+            logger_fn(
+                ip=ip,
+                password=password,
+                db_path=db_path,
+                price_eur_kwh=price,
+                power_limit_w=target,
+            )
+        except Exception as exc:
+            log.warning(
+                "telemetrie loggen mislukt (niet fataal): %s: %s",
+                type(exc).__name__, exc,
+            )
 
     return RunOutcome(
         price=price,
@@ -84,12 +102,16 @@ def main() -> int:
     try:
         cfg = _load_config(CONFIG_FILE)
         inv = cfg["inverter"]
+        log_cfg = cfg.get("logging") or {}
+        db_path = log_cfg.get("db_path")
         run(
             price_getter=fetch_prices.fetch_current_price,
             ip=inv["ip"],
             password=inv["password"],
             max_watts=float(inv["max_watts"]),
             inverter_apply=inverter.apply_power_limit,
+            logger_fn=logger.log_reading if db_path else None,
+            db_path=db_path,
         )
     except SystemExit:
         raise

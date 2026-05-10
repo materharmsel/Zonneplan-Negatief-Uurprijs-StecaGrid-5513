@@ -3,3 +3,8 @@ inverter:
   ip: 192.168.1.50
   password: "PLANT_OWNER_WACHTWOORD"
   max_watts: 5500
+
+# Optioneel: telemetrie-logging naar SQLite voor toekomstige web-interface.
+# Laat de hele sectie weg om logging uit te schakelen.
+logging:
+  db_path: "~/inverter_data.db"
