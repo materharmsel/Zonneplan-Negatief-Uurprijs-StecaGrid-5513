@@ -1,8 +1,15 @@
 # Lokale documentatie & captures (bevat secrets/cookies)
 docs/
 
+# HAR-files bevatten sessie-cookies en SCRAM-data
+*.har
+
 # Lokale config met wachtwoord
 config.yaml
+
+# Claude Code project-context (lokaal, bevat geen secrets maar hoeft niet publiek)
+.claude/
+CLAUDE.md
 
 # Python
 .venv/
@@ -10,6 +17,7 @@ venv/
 __pycache__/
 *.py[cod]
 *.egg-info/
+.pytest_cache/
 
 # Logs
 *.log
