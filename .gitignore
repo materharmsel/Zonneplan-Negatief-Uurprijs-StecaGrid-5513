@@ -11,6 +11,9 @@ config.yaml
 .claude/
 CLAUDE.md
 
+# Git worktrees (lokale isolated workspaces, nooit committen)
+.worktrees/
+
 # Python
 .venv/
 venv/
